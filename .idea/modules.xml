@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Encryption-Decryption.iml" filepath="$PROJECT_DIR$/.idea/modules/Encryption-Decryption.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Raise to the power/Encryption-Decryption.Problems-Raise_to_the_power.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Test learners/Encryption-Decryption.Problems-Test_learners.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Encryption-Decryption.util.test.iml" />
+    </modules>
+  </component>
+</project>
