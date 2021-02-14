@@ -1,5 +1,7 @@
 package encryptdecrypt;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 class Encryptor {
@@ -59,13 +61,14 @@ class Encryptor {
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         Encryptor ec = new Encryptor();
 
         String action = "enc";
         String inputString = "";
+        String inputFilePath = "";
+        String outputFilePath = "";
         int key = 0;
-        String output;
+        String output = "";
 
         for (int i = 0; i < args.length; i += 2){
             switch (args[i]) {
@@ -78,17 +81,52 @@ public class Main {
                 case "-data":
                     inputString = args[i + 1];
                     break;
+                case "-in":
+                    inputFilePath = args[i + 1];
+                    break;
+                case "-out":
+                    outputFilePath = args[i + 1];
+                    break;
                 default:
                     break;
             }
         }
 
-        if(action.equals("enc")) {
-            output = ec.encrypt3(inputString, key);
-        } else {
-            output = ec.decrypt3(inputString, key);
+        if(!inputString.equals("")){
+            if(action.equals("enc")) {
+                output = ec.encrypt3(inputString, key);
+            } else {
+                output = ec.decrypt3(inputString, key);
+            }
+        } else if(!inputFilePath.equals("")){
+            File file = new File("./" + inputFilePath);
+
+            try (Scanner scanner = new Scanner(file)) {
+                StringBuilder in = new StringBuilder();
+                while (scanner.hasNext()) {
+                    in.append(scanner.nextLine());
+                }
+                inputString = in.toString();
+                if(action.equals("enc")) {
+                    output = ec.encrypt3(inputString, key);
+                } else {
+                    output = ec.decrypt3(inputString, key);
+                }
+            } catch (Exception e) {
+                System.out.println("Error: cant read in file");
+            }
         }
 
-        System.out.println(output);
+        if (!outputFilePath.equals("")){
+            File file = new File("./" + outputFilePath);
+
+            try (PrintWriter printWriter = new PrintWriter(file)) {
+                printWriter.println(output);
+            } catch (Exception e) {
+                System.out.println("Error: cant write to out file");
+            }
+        } else {
+            System.out.println(output);
+        }
     }
 }
