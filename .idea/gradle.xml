@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/Encryption-Decryption/task" />
             <option value="$PROJECT_DIR$/Problems/Account" />
             <option value="$PROJECT_DIR$/Problems/Account Service" />
+            <option value="$PROJECT_DIR$/Problems/An expression with large numbers" />
             <option value="$PROJECT_DIR$/Problems/Application as a class" />
             <option value="$PROJECT_DIR$/Problems/Are siblings" />
             <option value="$PROJECT_DIR$/Problems/Assignments" />
@@ -24,7 +25,9 @@
             <option value="$PROJECT_DIR$/Problems/Clock factory" />
             <option value="$PROJECT_DIR$/Problems/Clocks" />
             <option value="$PROJECT_DIR$/Problems/Compact strings with AsciiCharSequence" />
+            <option value="$PROJECT_DIR$/Problems/Comparing numbers" />
             <option value="$PROJECT_DIR$/Problems/Counter" />
+            <option value="$PROJECT_DIR$/Problems/Double factorial" />
             <option value="$PROJECT_DIR$/Problems/Employee" />
             <option value="$PROJECT_DIR$/Problems/Employees" />
             <option value="$PROJECT_DIR$/Problems/Evaluate an expression" />
