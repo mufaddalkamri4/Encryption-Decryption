@@ -4,63 +4,98 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-class Encryptor {
+// Applying strategy pattern
 
+// Strategy
+interface EncryptionStrategy {
+    String encrypt(String input, int key);
+    String decrypt(String input, int key);
+}
 
-    String encrypt3(String in, int key) {
-        StringBuilder out = new StringBuilder(in);
-
-        for(int i = 0; i < in.length(); i++) {
-            if(in.charAt(i) >= ' ' && in.charAt(i) <= '~') {
-                int tmp = ((in.charAt(i) - 32 + key) % 95) + 32;
+// Concrete Strategy - Shift
+class ShiftEncryptionStrategy implements EncryptionStrategy {
+    @Override
+    public String encrypt(String input, int key) {
+        StringBuilder out = new StringBuilder(input);
+        for(int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) >= 'a' && input.charAt(i) <= 'z') {
+                int tmp = ((input.charAt(i) - 96 + key) % 26) + 96;
+                out.setCharAt(i, (char) tmp);
+            } else if (input.charAt(i) >= 'A' && input.charAt(i) <= 'Z') {
+                int tmp = ((input.charAt(i) - 40 + key) % 26) + 40;
                 out.setCharAt(i, (char) tmp);
             }
         }
-
         return out.toString();
     }
 
-    String decrypt3(String in, int key) {
-        StringBuilder out = new StringBuilder(in);
-
-        for(int i = 0; i < in.length(); i++) {
-            if(in.charAt(i) >= ' ' && in.charAt(i) <= '~') {
-                int tmp = (in.charAt(i) - 32 - key);
-                tmp = tmp < 1 ? 95 + tmp : tmp;
-                tmp = (tmp % 95) + 32;
+    @Override
+    public String decrypt(String input, int key) {
+        StringBuilder out = new StringBuilder(input);
+        for(int i = 0; i < input.length(); i++) { 
+            if(input.charAt(i) >= 'a' && input.charAt(i) <= 'z') {
+                int tmp = (input.charAt(i) - 96 - key);
+                tmp = tmp < 1 ? 26 + tmp : tmp;
+                tmp = (tmp % 26) + 96;
                 out.setCharAt(i, (char) tmp);
-            }
-        }
-
-        return out.toString();
-    }
-
-    String encrypt2(String in, int key) {
-        StringBuilder out = new StringBuilder(in);
-
-        for(int i = 0; i < in.length(); i++) {
-            if(in.charAt(i) >= 'a' && in.charAt(i) <= 'z') {
-                int tmp = ((in.charAt(i) - 96 + key) % 26) + 96;
+            } else if(input.charAt(i) >= 'A' && input.charAt(i) <= 'Z') {
+                int tmp = (input.charAt(i) - 40 - key);
+                tmp = tmp < 1 ? 26 + tmp : tmp;
+                tmp = (tmp % 26) + 40;
                 out.setCharAt(i, (char) tmp);
-            }
-        }
-
-        return out.toString();
-    }
-
-    String encrypt(String in) {
-        StringBuilder out = new StringBuilder(in);
-        for(int i = 0; i < in.length(); i++) {
-            if(in.charAt(i) >= 'a' && in.charAt(i) <= 'z') {
-                out.setCharAt(i, (char) ('{' - in.charAt(i) + '`'));
             }
         }
         return out.toString();
     }
 }
 
+// Concrete Strategy - Unicode
+class UnicodeEncryptionStrategy implements EncryptionStrategy {
+    @Override
+    public String encrypt(String input, int key) {
+        StringBuilder out = new StringBuilder(input);
+        for(int i = 0; i < input.length(); i++) {
+            if(input.charAt(i) >= ' ' && input.charAt(i) <= '~') {
+                int tmp = ((input.charAt(i) - 32 + key) % 95) + 32;
+                out.setCharAt(i, (char) tmp);
+            }
+        }
+        return out.toString();
+    }
+
+    @Override
+    public String decrypt(String input, int key) {
+        StringBuilder out = new StringBuilder(input);
+        for(int i = 0; i < input.length(); i++) {
+            if(input.charAt(i) >= ' ' && input.charAt(i) <= '~') {
+                int tmp = (input.charAt(i) - 32 - key);
+                tmp = tmp < 1 ? 95 + tmp : tmp;
+                tmp = (tmp % 95) + 32;
+                out.setCharAt(i, (char) tmp);
+            }
+        }
+        return out.toString();
+    }
+}
+
+//Context
+class Encryptor {
+    private EncryptionStrategy strategy;
+
+    public void setStrategy(EncryptionStrategy strategy) {
+        this.strategy = strategy;
+    }
+    public String encrypt(String input, int key) {
+        return strategy.encrypt(input, key);
+    }
+    public String decrypt(String input, int key) {
+        return strategy.decrypt(input, key);
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
+        
         Encryptor ec = new Encryptor();
 
         String action = "enc";
@@ -87,6 +122,15 @@ public class Main {
                 case "-out":
                     outputFilePath = args[i + 1];
                     break;
+                case "-alg":
+                    switch (args[i + 1]) {
+                        case "unicode":
+                            ec.setStrategy(new UnicodeEncryptionStrategy());
+                            break;
+                        default:
+                            ec.setStrategy(new ShiftEncryptionStrategy());
+                    }
+                    break;
                 default:
                     break;
             }
@@ -94,9 +138,9 @@ public class Main {
 
         if(!inputString.equals("")){
             if(action.equals("enc")) {
-                output = ec.encrypt3(inputString, key);
+                output = ec.encrypt(inputString, key);
             } else {
-                output = ec.decrypt3(inputString, key);
+                output = ec.decrypt(inputString, key);
             }
         } else if(!inputFilePath.equals("")){
             File file = new File("./" + inputFilePath);
@@ -108,9 +152,9 @@ public class Main {
                 }
                 inputString = in.toString();
                 if(action.equals("enc")) {
-                    output = ec.encrypt3(inputString, key);
+                    output = ec.encrypt(inputString, key);
                 } else {
-                    output = ec.decrypt3(inputString, key);
+                    output = ec.decrypt(inputString, key);
                 }
             } catch (Exception e) {
                 System.out.println("Error: cant read in file");
